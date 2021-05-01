@@ -66,6 +66,21 @@
       }
     }
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "npm run lint:eslint:fix",
+      "git add --force"
+    ],
+    "*.{ts,tsx,js,jsx,json}": [
+      "npm run format",
+      "git add --force"
+    ]
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
