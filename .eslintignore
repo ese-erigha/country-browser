@@ -1,0 +1,10 @@
+build/*
+public/*
+docs/*
+templates/*
+src/react-app-env.d.ts
+src/serviceWorker.ts
+src/service-worker.ts
+coverage/*
+.babelrc.js
+.rescriptsrc.js
