@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import LoadingSpinner from 'components/LoadingSpinner';
 import Layout from 'components/Layout';
 import Routes from './routes';
+import 'assets/scss/custom.scss';
 
 function App() {
   return (

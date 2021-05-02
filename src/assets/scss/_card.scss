@@ -1,0 +1,77 @@
+.movie-card {
+  background-color: $black;
+  border-radius: 2px;
+  box-shadow: 0 6px 10px -4px rgb(0, 0, 0 / 15%);
+  color: #333;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  border: 0 none;
+  width: 250px;
+  transition: transform 200ms cubic-bezier(0.34, 2, 0.6, 1), box-shadow 100ms ease;
+
+  a {
+    background-color: transparent;
+    &:not(.btn) {
+      color: #444;
+    }
+    &:hover {
+      text-decoration: none;
+      color: $black;
+    }
+    &:focus {
+      color: $black;
+    }
+  }
+  &:not(.card-register) {
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 12px 19px -7px rgba(0, 0, 0, 0.3);
+      transform: translateY(-10px);
+    }
+  }
+  .card-title {
+    margin-bottom: 0.5rem !important;
+  }
+
+  .card-body {
+    background-color: $black;
+    min-height: 125px;
+    color: #dee2e6;
+    position: relative;
+  }
+
+  .card-rating {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    background-color: #212529;
+    padding: 5px;
+    color: #ffc107;
+    display: block;
+    z-index: 100;
+    min-width: 35px;
+    font-size: 0.8em;
+    border-radius: 50%;
+    border: 2px solid #343a40;
+  }
+}
+
+@include media-responsive(max-width, 991px) {
+  .movie-card {
+    width: 300px;
+  }
+}
+
+@include media-responsive(max-width, 766px) {
+  .movie-card {
+    width: 230px;
+    margin-right: 20px;
+  }
+}
+
+@include media-responsive(max-width, 576px) {
+  .movie-card {
+    width: 300px;
+  }
+}
