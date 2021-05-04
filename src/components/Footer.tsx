@@ -1,11 +1,14 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const Footer = () => (
-  <footer className="footer text-center mt-4 mb-4 white">
+  <footer className="footer text-center mt-4 mb-4">
     <span>&#169; 2021 made with</span>
-    <i className="fa fa-heart heart space-left-7" aria-hidden="true" />
-    <span className="space-left-7">by</span>
-    <a href="https://github.com/eseerigha/movie-finder" className="space-left-7">
+    <span className="space-left-4" />
+    <FontAwesomeIcon className="red" icon={faHeart} />
+    <span className="space-left-4">by</span>
+    <a href="https://github.com/eseerigha/country-browser" className="space-left-4">
       eseerigha
     </a>
   </footer>

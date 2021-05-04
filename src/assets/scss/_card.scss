@@ -1,8 +1,8 @@
-.movie-card {
-  background-color: $black;
-  border-radius: 2px;
-  box-shadow: 0 6px 10px -4px rgb(0, 0, 0 / 15%);
-  color: #333;
+.country-card {
+  background-color: $white;
+  border-radius: 5px;
+  // box-shadow: 0 6px 10px -4px rgb(0, 0, 0 / 15%);
+  // color: $white;
   margin-bottom: 20px;
   position: relative;
   z-index: 1;
@@ -17,10 +17,10 @@
     }
     &:hover {
       text-decoration: none;
-      color: $black;
+      // color: $black;
     }
     &:focus {
-      color: $black;
+      // color: $black;
     }
   }
   &:not(.card-register) {
@@ -35,43 +35,27 @@
   }
 
   .card-body {
-    background-color: $black;
+    background-color: $white;
     min-height: 125px;
-    color: #dee2e6;
     position: relative;
-  }
-
-  .card-rating {
-    position: absolute;
-    right: 7px;
-    top: 7px;
-    background-color: #212529;
-    padding: 5px;
-    color: #ffc107;
-    display: block;
-    z-index: 100;
-    min-width: 35px;
-    font-size: 0.8em;
-    border-radius: 50%;
-    border: 2px solid #343a40;
   }
 }
 
 @include media-responsive(max-width, 991px) {
-  .movie-card {
+  .country-card {
     width: 300px;
   }
 }
 
 @include media-responsive(max-width, 766px) {
-  .movie-card {
+  .country-card {
     width: 230px;
     margin-right: 20px;
   }
 }
 
 @include media-responsive(max-width, 576px) {
-  .movie-card {
+  .country-card {
     width: 300px;
   }
 }
