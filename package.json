@@ -34,7 +34,13 @@
     "react-bootstrap": "^1.5.1",
     "react-helmet-async": "^1.0.9",
     "react-router-dom": "^5.2.0",
-    "ts-mockery": "^1.2.0"
+    "ts-mockery": "^1.2.0",
+    "@apollo/client": "^3.3.7",
+    "@apollo/react-hooks": "^4.0.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/free-regular-svg-icons": "^5.15.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.1.14"
   },
   "scripts": {
     "start": "react-scripts start",
