@@ -1,21 +1,21 @@
 .has-search {
-    .form-control {
-        padding-left: 4rem;
-        height: 50px;
-        border: none;
-    }
+  .form-control {
+    padding-left: 4rem;
+    height: 50px;
+    border: none;
+  }
 
-    .form-control-feedback {
-        position: absolute;
-        z-index: 2;
-        display: block;
-        width: 1rem;
-        height: 2.375rem;
-        line-height: 2.375rem;
-        text-align: center;
-        pointer-events: none;
-        color: #aaa;
-        margin-left: 2rem;
-        margin-top: 6px;
-    }
+  .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 1rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+    margin-left: 2rem;
+    margin-top: 6px;
+  }
 }
