@@ -8,7 +8,7 @@
     width: 100%;
     background-color: $white;
     border-color: $white;
-    color: hsl(200, 15%, 8%);
+    color: $very-dark-blue;
   }
 
   @media screen and (max-width: 991px) {
@@ -21,7 +21,7 @@
 .show > .btn-primary.dropdown-toggle {
   background-color: $white;
   border-color: $white;
-  color: hsl(200, 15%, 8%);
+  color: $very-dark-blue;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active:focus,

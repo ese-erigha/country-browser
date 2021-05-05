@@ -2,7 +2,7 @@ import React from 'react';
 import CountryList from 'components/CountryList';
 import { Helmet } from 'react-helmet-async';
 import SearchBox from 'components/SearchBox';
-import RegionSelector from 'components/Region';
+import RegionSelect from 'components/RegionSelect';
 import { WEBSITE_NAME } from '../constants';
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
       </Helmet>
       <div className="home-widget-grid mb-30">
         <SearchBox />
-        <RegionSelector />
+        <RegionSelect />
       </div>
       <CountryList />
     </>

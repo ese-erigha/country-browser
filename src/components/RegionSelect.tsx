@@ -2,7 +2,7 @@ import React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
-const RegionSelector = () => {
+const RegionSelect = () => {
   console.log('Hello');
   return (
     <div className="region-selector">
@@ -14,4 +14,4 @@ const RegionSelector = () => {
     </div>
   );
 };
-export default RegionSelector;
+export default RegionSelect;

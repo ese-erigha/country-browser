@@ -7,22 +7,22 @@
     padding-left: 4rem;
     height: 50px;
     border: none;
-    color: hsl(200, 15%, 8%);
+    color: $very-dark-blue;
 
     &::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: hsl(200, 15%, 8%);
+      color: $very-dark-blue;
       opacity: 1; /* Firefox */
     }
 
     &:-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: hsl(200, 15%, 8%);
+      color: $very-dark-blue;
     }
 
     &::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: hsl(200, 15%, 8%);
+      color: $very-dark-blue;
     }
   }
 
@@ -35,7 +35,7 @@
     line-height: 2.375rem;
     text-align: center;
     pointer-events: none;
-    color: hsl(200, 15%, 8%);
+    color: $very-dark-blue;
     margin-left: 2rem;
     margin-top: 6px;
   }

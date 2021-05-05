@@ -1,8 +1,7 @@
 @import './theme';
 
 body {
-  // background-color: $black;
-  background-color: hsl(0, 0%, 98%);
+  background-color: $very-light-gray;
   font-family: 'Nunito Sans', sans-serif;
 }
 main {
@@ -42,7 +41,7 @@ main {
   margin-right: 4px;
 }
 .very-dark-blue {
-  color: hsl(200, 15%, 8%);
+  color: $very-dark-blue;
 }
 .weight-800 {
   font-weight: 800;
@@ -54,7 +53,7 @@ main {
   margin-top: 20px;
 }
 .mb-down {
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.4rem;
 }
 .mb-30 {
   margin-bottom: 30px;
@@ -75,5 +74,69 @@ main {
     grid-template:
       'search'
       'region';
+  }
+}
+
+.click-button{
+  color:$very-dark-blue;
+  background-color: $white;
+  border: 0 none;
+  border-radius: 5px;
+  width: 120px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+  &:hover{
+    background-color: $white;
+    color:$very-dark-blue;
+  }
+}
+
+.pt-25{
+  padding-top: 25px;
+}
+.pb-25{
+  padding-bottom: 25px;
+}
+p{
+  color: $very-dark-blue;
+}
+.space-left-10{
+  margin-left: 10px;
+}
+
+.width-auto{
+  width: auto;
+}
+
+.inline{
+  display: inline;
+}
+.parent-width{
+  width: 100%;
+}
+
+.flag-wrapper{
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+
+  img{
+    width: 100%;
+  }
+}
+
+.detail-wrapper{
+  @media screen and (max-width: 1200px) {
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 480px) {
+    justify-content: flex-start!important;
+  }
+}
+
+.back-button-wrapper{
+  @media screen and (max-width: 480px) {
+    margin-top: 0px;
   }
 }
