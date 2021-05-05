@@ -1,3 +1,9 @@
 .gray-box-shadow {
   box-shadow: 0px 0px 10px gray;
 }
+
+.navbar-light {
+  .navbar-text{
+    color: hsl(200, 15%, 8%);
+  }
+}

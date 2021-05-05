@@ -14,7 +14,7 @@ const NavBar = () => (
         <Navbar.Text>
           <FontAwesomeIcon icon={faMoon} />
           <span className="space-left-4" />
-          <span className="m-l-5 font-weight-550">Dark Mode</span>
+          <span className="m-l-5 font-weight-550 very-dark-blue">Dark Mode</span>
         </Navbar.Text>
       </Navbar.Collapse>
     </Container>

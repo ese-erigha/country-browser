@@ -1,8 +1,26 @@
+.search-box{
+  width: 400px;
+}
+
 .has-search {
   .form-control {
     padding-left: 4rem;
     height: 50px;
     border: none;
+    color: hsl(200, 15%, 8%);
+
+    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: hsl(200, 15%, 8%);
+      opacity: 1; /* Firefox */
+    }
+    
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: hsl(200, 15%, 8%);
+    }
+    
+    &::-ms-input-placeholder { /* Microsoft Edge */
+      color: hsl(200, 15%, 8%);
+    }
   }
 
   .form-control-feedback {
@@ -14,7 +32,7 @@
     line-height: 2.375rem;
     text-align: center;
     pointer-events: none;
-    color: #aaa;
+    color: hsl(200, 15%, 8%);
     margin-left: 2rem;
     margin-top: 6px;
   }
