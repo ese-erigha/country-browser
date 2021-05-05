@@ -1,27 +1,31 @@
-.region-selector{
-    justify-self: end;
-    width: 200px;
+.region-selector {
+  justify-self: end;
+  width: 200px;
+  height: 50px;
+
+  .dropdown-toggle {
     height: 50px;
-  
-    .dropdown-toggle{
-      height: 50px;
-      width: 100%;
-      background-color: $white;
-      border-color: $white;
-      color: hsl(200, 15%, 8%);
-    }
-  
-    @media screen and (max-width: 991px) {
-      justify-self: start;
-    }
-  }
-  
-  .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active, .show > .btn-primary.dropdown-toggle{
+    width: 100%;
     background-color: $white;
     border-color: $white;
     color: hsl(200, 15%, 8%);
   }
 
-  .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.dropdown-toggle:focus{
-      box-shadow: none;
+  @media screen and (max-width: 991px) {
+    justify-self: start;
   }
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: $white;
+  border-color: $white;
+  color: hsl(200, 15%, 8%);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: none;
+}
