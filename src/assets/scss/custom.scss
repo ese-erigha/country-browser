@@ -77,65 +77,65 @@ main {
   }
 }
 
-.click-button{
-  color:$very-dark-blue;
+.click-button {
+  color: $very-dark-blue;
   background-color: $white;
   border: 0 none;
   border-radius: 5px;
   width: 120px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
-  &:hover{
+  &:hover {
     background-color: $white;
-    color:$very-dark-blue;
+    color: $very-dark-blue;
   }
 }
 
-.pt-25{
+.pt-25 {
   padding-top: 25px;
 }
-.pb-25{
+.pb-25 {
   padding-bottom: 25px;
 }
-p{
+p {
   color: $very-dark-blue;
 }
-.space-left-10{
+.space-left-10 {
   margin-left: 10px;
 }
 
-.width-auto{
+.width-auto {
   width: auto;
 }
 
-.inline{
+.inline {
   display: inline;
 }
-.parent-width{
+.parent-width {
   width: 100%;
 }
 
-.flag-wrapper{
+.flag-wrapper {
   @media screen and (max-width: 768px) {
     width: 100%;
   }
 
-  img{
+  img {
     width: 100%;
   }
 }
 
-.detail-wrapper{
+.detail-wrapper {
   @media screen and (max-width: 1200px) {
     margin-top: 20px;
   }
 
   @media screen and (max-width: 480px) {
-    justify-content: flex-start!important;
+    justify-content: flex-start !important;
   }
 }
 
-.back-button-wrapper{
+.back-button-wrapper {
   @media screen and (max-width: 480px) {
     margin-top: 0px;
   }
