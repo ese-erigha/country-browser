@@ -67,3 +67,13 @@ export interface Country extends MappedCountry {
   regionalBlocs: RegionalBloc[];
   cioc: string;
 }
+
+export type State = {
+  loading: boolean;
+  selectedRegion?: string;
+  countries: Country[];
+};
+
+export type ICountries = {
+  Country: Country[];
+};
