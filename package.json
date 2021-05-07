@@ -19,6 +19,7 @@
     "bootstrap": "^4.6.0",
     "classnames": "^2.2.6",
     "cli-spinners": "^2.6.0",
+    "graphql": "^15.5.0",
     "graphql-tag": "^2.12.4",
     "node-sass": "^5.0.0",
     "react": "^17.0.2",

@@ -1,18 +1,62 @@
 import gql from 'graphql-tag';
 
-export const GET_REGIONS_QUERY = gql`
-  query GetRegion($_id: String, $name: String, $first: Int, $orderBy: [_RegionOrdering]) {
-    Region(_id: $_id, name: $name, first: $first, orderBy: $orderBy) {
-      _id
-      name
-      subregions(first: 100, orderBy: [name_asc]) {
-        countries(first: 100, orderBy: [name_asc]) {
+export const GET_COUNTRY_BY_ID_QUERY = gql`
+  query getCountry($id: String!) {
+    country(id: $id) {
+      __typename
+      ... on CountryNotFound {
+        message
+      }
+      ... on Country {
+        id
+        alpha2Code
+        alpha3Code
+        altSpellings
+        area
+        borders
+        callingCodes
+        capital
+        cioc
+        currencies {
+          code
           name
-          population
-          capital
-          flag {
-            svgFile
-          }
+          symbol
+        }
+        demonym
+        flag
+        gini
+        languages {
+          iso639_1
+          iso639_2
+          name
+          nativeName
+        }
+        latlng
+        name
+        nativeName
+        numericCode
+        population
+        region
+        regionalBlocs {
+          acronym
+          name
+          otherAcronyms
+          otherNames
+        }
+        subregion
+        timezones
+        topLevelDomain
+        translations {
+          br
+          de
+          es
+          fa
+          fr
+          hr
+          it
+          ja
+          nl
+          pt
         }
       }
     }
@@ -20,14 +64,26 @@ export const GET_REGIONS_QUERY = gql`
 `;
 
 export const SEARCH_COUNTRIES_QUERY = gql`
-  query SearchCountry($name: String) {
-    Country(name: $name, orderBy: [name_asc]) {
-      _id
-      name
-      population
-      capital
-      flag {
-        svgFile
+  query searchCountries($countryInput: CountryInput!) {
+    countries(countryInput: $countryInput) {
+      __typename
+      ... on CountryConnection {
+        pageInfo {
+          hasPrevPage
+          hasNextPage
+        }
+        nodes {
+          id
+          name
+          alpha2Code
+          capital
+          population
+          region
+          flag
+        }
+      }
+      ... on CountrySearchError {
+        message
       }
     }
   }

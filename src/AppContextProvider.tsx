@@ -1,6 +1,7 @@
 import React, { ReactNode, Reducer, useReducer } from 'react';
-import { AppContext } from './state/context';
-import { Action, initialState, initState, reducer } from './state/reducer';
+import { Action } from 'state/actionTypes';
+import { initialState, initState, reducer } from 'state/reducers';
+import { AppContext } from 'state/context';
 import { State } from './types';
 
 type Props = {

@@ -67,13 +67,34 @@ export interface Country extends MappedCountry {
   regionalBlocs: RegionalBloc[];
   cioc: string;
 }
+export type ICountries = {
+  Country: Country[];
+};
+
+export type CountrySearchError = {
+  message: string;
+};
+
+type ResponseType = { __typename: string };
+
+export type PageInfo = {
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+};
+export type CountryConnection = {
+  pageInfo: PageInfo;
+  nodes: MappedCountry[];
+};
+type CountrySearchResponse = CountryConnection | CountrySearchError;
+export type CountriesResponse = ResponseType & CountrySearchResponse;
+export type ICountriesSearchResponse = {
+  countries: CountriesResponse;
+};
 
 export type State = {
   loading: boolean;
   selectedRegion?: string;
-  countries: Country[];
-};
-
-export type ICountries = {
-  Country: Country[];
+  countries: MappedCountry[];
+  error?: string;
+  pageInfo?: PageInfo;
 };
