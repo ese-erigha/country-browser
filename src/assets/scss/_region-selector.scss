@@ -10,12 +10,13 @@
     border-color: $white;
     color: $very-dark-blue;
   }
-  .dropdown-item.active, .dropdown-item:active {
+  .dropdown-item.active,
+  .dropdown-item:active {
     color: $very-dark-blue;
     text-decoration: none;
     background-color: #e9ecef;
     font-weight: 600;
-}
+  }
 
   @media screen and (max-width: 991px) {
     justify-self: start;
