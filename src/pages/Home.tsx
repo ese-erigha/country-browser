@@ -10,23 +10,26 @@ import { SEARCH_COUNTRIES_QUERY } from 'api';
 import { ActionTypes } from 'state/actionTypes';
 import { WEBSITE_NAME } from '../constants';
 
-const buildSearchQueryParams = (offset: number = 0) => ({ countryInput: { offset } });
-
 const Home = () => {
-  const { dispatch } = useContext(AppContext);
+  const {
+    dispatch,
+    state: { offset },
+  } = useContext(AppContext);
   const onCompleted = (data: ICountriesSearchResponse) =>
     dispatch({
       type: ActionTypes.FETCH_COUNTRIES,
       payload: data,
     });
-  const variables = buildSearchQueryParams();
-  const [fetchCountries, { loading, refetch }] = useLazyQuery<ICountriesSearchResponse>(
+
+  const buildQueryOptions = (pageOffset: number = 0) => ({
+    onCompleted,
+    notifyOnNetworkStatusChange: true,
+    variables: { countryInput: { offset: pageOffset } },
+  });
+
+  const [fetchCountries, { refetch }] = useLazyQuery<ICountriesSearchResponse>(
     SEARCH_COUNTRIES_QUERY,
-    {
-      variables,
-      onCompleted,
-      notifyOnNetworkStatusChange: true,
-    }
+    buildQueryOptions(offset)
   );
 
   useEffect(() => {

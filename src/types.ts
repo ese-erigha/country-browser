@@ -67,8 +67,9 @@ export interface Country extends MappedCountry {
   regionalBlocs: RegionalBloc[];
   cioc: string;
 }
-export type ICountries = {
-  Country: Country[];
+
+export type ICountry = {
+  country: Country;
 };
 
 export type CountrySearchError = {
@@ -86,15 +87,21 @@ export type CountryConnection = {
   nodes: MappedCountry[];
 };
 type CountrySearchResponse = CountryConnection | CountrySearchError;
-export type CountriesResponse = ResponseType & CountrySearchResponse;
+
 export type ICountriesSearchResponse = {
-  countries: CountriesResponse;
+  countries: ResponseType & CountrySearchResponse;
+};
+
+export type CountryListResponse = {
+  countries?: MappedCountry[];
+  pageInfo?: PageInfo;
 };
 
 export type State = {
+  offset?: number;
   loading: boolean;
   selectedRegion?: string;
-  countries: MappedCountry[];
+  countryListResponse?: CountryListResponse;
+  cachedCountryListResponse?: CountryListResponse;
   error?: string;
-  pageInfo?: PageInfo;
 };
