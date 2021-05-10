@@ -97,11 +97,32 @@ export type CountryListResponse = {
   pageInfo?: PageInfo;
 };
 
-export type State = {
+export enum QueryType {
+  REGION_SELECT = 'REGION_SELECT',
+  SEARCH_COUNTRIES = 'SEARCH_COUNTRIES',
+
+  FETCH_ALL_COUNTRIES = 'FETCH_ALL_COUNTRIES',
+}
+
+export type QueryInput = {
   offset?: number;
+  name?: string;
+  region?: string;
+};
+
+export type SearchQuery = {
+  type: QueryType;
+  query: QueryInput;
+};
+
+export type State = {
   loading: boolean;
+  error?: string;
   selectedRegion?: string;
   countryListResponse?: CountryListResponse;
-  cachedCountryListResponse?: CountryListResponse;
-  error?: string;
+  cache?: {
+    countryListResponse?: CountryListResponse;
+    searchQuery?: SearchQuery;
+  };
+  searchQuery?: SearchQuery;
 };

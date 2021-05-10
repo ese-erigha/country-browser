@@ -1,11 +1,16 @@
 import {
   SearchCountriesAction,
   EmptySearchQueryAction,
-  FetchCountriesAction,
+  FetchAllCountriesAction,
 } from 'state/actionTypes';
 import { CountryConnection, CountryListResponse, CountrySearchError, State } from 'types';
 
-export const fetchCountriesReducer = (state: State, action: FetchCountriesAction): State => {
+export type ReducerStrategy = {
+  check: () => boolean;
+};
+export const reducerStrategy = () => {};
+
+export const fetchAllCountriesReducer = (state: State, action: FetchAllCountriesAction): State => {
   const { countries } = action.payload;
 
   let partialState: Partial<State> = {};
@@ -15,14 +20,19 @@ export const fetchCountriesReducer = (state: State, action: FetchCountriesAction
     partialState = { ...partialState, error: (countries as CountrySearchError).message };
   } else {
     const { nodes, pageInfo } = countries as CountryConnection;
-    const cachedCountryListResponse: CountryListResponse = {
-      countries: state.cachedCountryListResponse?.countries?.concat(nodes),
-      pageInfo,
+    const countryList = state.cache?.countryListResponse?.countries ?? [];
+    const cache = {
+      countryListResponse: {
+        countries: countryList.concat(nodes),
+        pageInfo,
+      },
+      searchQuery: state.searchQuery,
     };
+
     partialState = {
       ...partialState,
-      cachedCountryListResponse,
-      countryListResponse: cachedCountryListResponse,
+      cache,
+      countryListResponse: state.cache?.countryListResponse,
     };
   }
 
@@ -32,6 +42,12 @@ export const fetchCountriesReducer = (state: State, action: FetchCountriesAction
     loading: false,
   };
 };
+export const emptySearchQueryReducer = (state: State, _action: EmptySearchQueryAction): State => ({
+  ...state,
+  countryListResponse: state.cache?.countryListResponse,
+  searchQuery: state.cache?.searchQuery,
+  loading: false,
+});
 export const searchCountriesReducer = (state: State, action: SearchCountriesAction): State => {
   const { countries } = action.payload;
 
@@ -42,8 +58,9 @@ export const searchCountriesReducer = (state: State, action: SearchCountriesActi
     partialState = { ...partialState, error: (countries as CountrySearchError).message };
   } else {
     const { nodes, pageInfo } = countries as CountryConnection;
+    const offset = state.searchQuery?.query?.offset ?? 0;
     const countryListResponse: CountryListResponse = {
-      countries: nodes,
+      countries: offset < 1 ? nodes : (state.countryListResponse?.countries ?? []).concat(nodes),
       pageInfo,
     };
     partialState = {
@@ -58,15 +75,10 @@ export const searchCountriesReducer = (state: State, action: SearchCountriesActi
     loading: false,
   };
 };
-export const emptySearchQueryReducer = (state: State, _action: EmptySearchQueryAction): State => ({
-  ...state,
-  countryListResponse: state.cachedCountryListResponse,
-  loading: false,
-});
 
 export const fetchCountriesByRegionReducer = (
   state: State,
-  action: FetchCountriesAction
+  action: FetchAllCountriesAction
 ): State => {
   const { countries } = action.payload;
 
@@ -77,14 +89,15 @@ export const fetchCountriesByRegionReducer = (
     partialState = { ...partialState, error: (countries as CountrySearchError).message };
   } else {
     const { nodes, pageInfo } = countries as CountryConnection;
-    const cachedCountryListResponse: CountryListResponse = {
-      countries: state.cachedCountryListResponse?.countries?.concat(nodes),
+    const offset = state.searchQuery?.query?.offset ?? 0;
+    const countryListResponse: CountryListResponse = {
+      countries: offset < 1 ? nodes : (state.countryListResponse?.countries ?? []).concat(nodes),
       pageInfo,
     };
     partialState = {
       ...partialState,
-      cachedCountryListResponse,
-      countryListResponse: cachedCountryListResponse,
+      countryListResponse,
+      searchQuery: state.cache?.searchQuery,
     };
   }
 
