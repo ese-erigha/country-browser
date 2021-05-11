@@ -26,6 +26,7 @@ export const emptySearchQueryReducer = (
   countryListResponse: state.cache?.countryListResponse,
   searchQuery: state.cache?.searchQuery,
 });
+
 const fetchAllCountriesReducer = (
   state: State,
   action: FetchAllCountriesAction
@@ -45,6 +46,7 @@ const fetchAllCountriesReducer = (
     countryListResponse: state.cache?.countryListResponse,
   };
 };
+
 const searchCountriesReducer = (state: State, action: SearchCountriesAction): Partial<State> => {
   const { nodes, pageInfo } = getCountriesFromPayload(action.payload);
   const offset = state.searchQuery?.query?.offset ?? 0;
@@ -57,6 +59,7 @@ const searchCountriesReducer = (state: State, action: SearchCountriesAction): Pa
     countryListResponse,
   };
 };
+
 const fetchCountriesByRegionReducer = (
   state: State,
   action: FetchAllCountriesAction
@@ -73,6 +76,7 @@ const fetchCountriesByRegionReducer = (
     searchQuery: state.cache?.searchQuery,
   };
 };
+
 type ReducerStrategy = {
   check: (state: State, action: BaseSearchAction) => boolean;
   reduce: (state: State, action: BaseSearchAction) => Partial<State>;
