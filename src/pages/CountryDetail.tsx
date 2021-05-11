@@ -3,12 +3,29 @@ import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 import Flag from 'components/Country/Flag';
-import { country } from 'fixtures';
+// import { country } from 'fixtures';
 import Description from 'components/Country/Description';
+import { FETCH_COUNTRY_BY_ID_QUERY } from 'api';
+import { useQuery } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
+import LoadingSpinner from 'components/LoadingSpinner';
+import { Country, ICountryResponse } from 'types';
 import { WEBSITE_NAME } from '../constants';
 
+type RouteParams = {
+  id: string;
+};
+
 const CountryDetail = () => {
-  console.log('Country Detail');
+  const { id } = useParams<RouteParams>();
+  const { data, error } = useQuery<ICountryResponse>(FETCH_COUNTRY_BY_ID_QUERY, {
+    variables: { id },
+  });
+
+  if (!data) return <LoadingSpinner />;
+  if (data.country.__typename === 'CountryNotFound') return <div>{error}</div>;
+  const country = data.country as Country;
+
   return (
     <>
       <Helmet>

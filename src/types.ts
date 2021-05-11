@@ -72,10 +72,12 @@ export type ICountry = {
   country: Country;
 };
 
-export type CountrySearchError = {
+type ApiError = {
   message: string;
 };
 
+export interface CountrySearchError extends ApiError {}
+export interface CountryNotFound extends ApiError {}
 type ResponseType = { __typename: string };
 
 export type PageInfo = {
@@ -87,9 +89,14 @@ export type CountryConnection = {
   nodes: MappedCountry[];
 };
 type CountrySearchResponse = CountryConnection | CountrySearchError;
+type CountryResponse = Country | CountryNotFound;
 
 export type ICountriesSearchResponse = {
   countries: ResponseType & CountrySearchResponse;
+};
+
+export type ICountryResponse = {
+  country: ResponseType & CountryResponse;
 };
 
 export type CountryListResponse = {

@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-export const GET_COUNTRY_BY_ID_QUERY = gql`
+export const FETCH_COUNTRY_BY_ID_QUERY = gql`
   query getCountry($id: String!) {
     country(id: $id) {
       __typename
