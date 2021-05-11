@@ -77,12 +77,12 @@ const fetchCountriesByRegionReducer = (
   };
 };
 
-type ReducerStrategy = {
+type SearchReducerStrategy = {
   check: (state: State, action: BaseSearchAction) => boolean;
   reduce: (state: State, action: BaseSearchAction) => Partial<State>;
 };
 
-const countriesSearchErrorReducerStrategy: ReducerStrategy = {
+const countriesSearchErrorReducerStrategy: SearchReducerStrategy = {
   check: (_state: State, action: BaseSearchAction) =>
     action.payload.countries.__typename === 'CountrySearchError',
   reduce: (_state: State, action: BaseSearchAction) => ({
@@ -90,29 +90,29 @@ const countriesSearchErrorReducerStrategy: ReducerStrategy = {
   }),
 };
 
-const fetchAllCountriesReducerStrategy: ReducerStrategy = {
+const fetchAllCountriesReducerStrategy: SearchReducerStrategy = {
   check: (_state: State, action: BaseSearchAction) =>
     action.type === ActionTypes.FETCH_ALL_COUNTRIES,
   reduce: (state: State, action: BaseSearchAction) => fetchAllCountriesReducer(state, action),
 };
 
-const fetchCountriesByRegionReducerStrategy: ReducerStrategy = {
+const fetchCountriesByRegionReducerStrategy: SearchReducerStrategy = {
   check: (_state: State, action: BaseSearchAction) =>
     action.type === ActionTypes.FETCH_COUNTRIES_BY_REGION_QUERY,
   reduce: (state: State, action: BaseSearchAction) => fetchCountriesByRegionReducer(state, action),
 };
 
-const searchCountriesReducerStrategy: ReducerStrategy = {
+const searchCountriesReducerStrategy: SearchReducerStrategy = {
   check: (_state: State, action: BaseSearchAction) => action.type === ActionTypes.SEARCH_COUNTRIES,
   reduce: (state: State, action: BaseSearchAction) => searchCountriesReducer(state, action),
 };
 
-const emptySearchReducerStrategy: ReducerStrategy = {
+const emptySearchReducerStrategy: SearchReducerStrategy = {
   check: (_state: State, action: Action) => action.type === ActionTypes.EMPTY_SEARCH_QUERY,
   reduce: (state: State, action: Action) => emptySearchQueryReducer(state, action),
 };
 
-const reducerStrategies: ReducerStrategy[] = [
+const reducerStrategies: SearchReducerStrategy[] = [
   countriesSearchErrorReducerStrategy,
   fetchAllCountriesReducerStrategy,
   fetchCountriesByRegionReducerStrategy,
