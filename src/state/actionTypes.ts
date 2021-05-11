@@ -12,21 +12,19 @@ interface BaseAction {
   type: ActionTypes;
 }
 
-export interface FetchAllCountriesAction extends BaseAction {
-  payload: ICountriesSearchResponse;
-}
-
-export interface SearchCountriesAction extends FetchAllCountriesAction {}
-
 export interface EmptySearchQueryAction extends BaseAction {}
-
-export interface FetchCountriesByRegionAction extends FetchAllCountriesAction {}
-
 export interface SetCountriesSearchQueryAction extends BaseAction {
   payload: SearchQuery;
 }
+export interface BaseSearchAction extends BaseAction {
+  payload: ICountriesSearchResponse;
+}
+export interface FetchAllCountriesAction extends BaseSearchAction {}
+export interface SearchCountriesAction extends BaseSearchAction {}
+export interface FetchCountriesByRegionAction extends BaseSearchAction {}
 
 export type Action =
+  | BaseSearchAction
   | FetchAllCountriesAction
   | SearchCountriesAction
   | EmptySearchQueryAction

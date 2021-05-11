@@ -15,7 +15,7 @@
     "rules": {
       "@typescript-eslint/no-throw-literal": ["off"],
       "object-curly-spacing": ["warn", "always"],
-      "no-underscore-dangle": ["error", {"allow": ["_id"]}],
+      "no-underscore-dangle": ["error", {"allow": ["_id","__typename"]}],
       "no-console": "off",
       "no-unused-vars": [
         "warn",
