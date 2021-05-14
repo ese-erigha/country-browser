@@ -6,6 +6,7 @@ export type PageProps = {
 
 export interface MappedCountry {
   id: string;
+  metaId: string;
   name: string;
   alpha2Code: string;
   capital: string;
@@ -41,8 +42,6 @@ export interface Country extends MappedCountry {
   topLevelDomain: string[];
   currencies: Currency[];
   languages: Language[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  borderCountries: any;
   callingCodes: string[];
   altSpellings: string[];
   latlng: number[];
@@ -50,7 +49,7 @@ export interface Country extends MappedCountry {
   area: number;
   gini: number;
   timezones: string[];
-  borders: string[];
+  borders: Country[];
   numericCode: string;
   translations: {
     de: string;

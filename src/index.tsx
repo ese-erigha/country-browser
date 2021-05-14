@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { GRAPHQL_URI } from 'config';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_GRAPHQL_URI,
+  uri: GRAPHQL_URI,
   cache: new InMemoryCache(),
   queryDeduplication: false,
 });

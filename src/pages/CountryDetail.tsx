@@ -18,6 +18,7 @@ type RouteParams = {
 
 const CountryDetail = () => {
   const { id } = useParams<RouteParams>();
+  console.log(id);
   const { data, error } = useQuery<ICountryResponse>(FETCH_COUNTRY_BY_ID_QUERY, {
     variables: { id },
   });

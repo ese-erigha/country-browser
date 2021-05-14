@@ -11,7 +11,7 @@ const CountryCard = (props: Props) => {
 
   return (
     <Card className="country-card">
-      <a data-testid="link" href={`/country/${country.id}`}>
+      <a data-testid="link" href={`/country/${country.metaId}`}>
         <Card.Img
           id="image"
           alt={country.name}

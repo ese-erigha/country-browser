@@ -38,6 +38,10 @@
     min-height: 125px;
     position: relative;
   }
+
+  .card-img-top {
+    height: 170px;
+  }
 }
 
 @include media-responsive(max-width, 991px) {

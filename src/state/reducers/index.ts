@@ -8,8 +8,12 @@ import {
 } from '../actionTypes';
 import { searchReducer } from './search.reducer';
 
-const cachedState = localStorage.getItem(APP_STATE);
-export const initialState: State = cachedState ? JSON.parse(cachedState) : { loading: true };
+// const cachedState = localStorage.getItem(APP_STATE);
+// export const initialState: State = cachedState ? JSON.parse(cachedState) : { loading: true };
+
+export const initialState: State = {
+  loading: true,
+};
 
 export const initState = (state: State) => state;
 

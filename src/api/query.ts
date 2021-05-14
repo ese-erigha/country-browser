@@ -9,11 +9,16 @@ export const FETCH_COUNTRY_BY_ID_QUERY = gql`
       }
       ... on Country {
         id
+        metaId
         alpha2Code
         alpha3Code
         altSpellings
         area
-        borders
+        borders {
+          id
+          metaId
+          name
+        }
         callingCodes
         capital
         cioc
@@ -26,8 +31,8 @@ export const FETCH_COUNTRY_BY_ID_QUERY = gql`
         flag
         gini
         languages {
-          iso639_1
-          iso639_2
+          iso6391
+          iso6392
           name
           nativeName
         }
@@ -74,6 +79,7 @@ export const SEARCH_COUNTRIES_QUERY = gql`
         }
         nodes {
           id
+          metaId
           name
           alpha2Code
           capital

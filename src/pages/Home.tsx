@@ -5,20 +5,18 @@ import SearchBox from 'components/SearchBox';
 import RegionSelect from 'components/RegionSelect';
 import { AppContext } from 'state/context';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { ICountriesSearchResponse, QueryInput, QueryType, SearchQuery } from 'types';
+import { ICountriesSearchResponse, QueryType, SearchQuery } from 'types';
 import { SEARCH_COUNTRIES_QUERY } from 'api';
 import { ActionTypes } from 'state/actionTypes';
 import { WEBSITE_NAME } from '../constants';
 
-const buildQueryVariables = (queryInput: QueryInput, queryOffset?: number) => ({
-  countryInput: { ...queryInput, offset: queryOffset ?? queryInput.offset },
-});
-
-const buildPartialHooksOptions = (searchQuery?: SearchQuery) => {
+const buildQueryVariables = (searchQuery?: SearchQuery, queryOffset?: number) => {
   const queryInput = searchQuery ? searchQuery.query : { offset: 0 };
   return {
-    notifyOnNetworkStatusChange: true,
-    variables: { countryInput: buildQueryVariables(queryInput) },
+    countryInput: {
+      ...queryInput,
+      offset: queryOffset ?? queryInput.offset,
+    },
   };
 };
 
@@ -36,48 +34,60 @@ const isEmptySearchQuery = (searchQueryData?: SearchQuery) =>
   !searchQueryData.query?.name?.length;
 
 const Home = () => {
-  const [fetchCountries] = useLazyQuery<ICountriesSearchResponse>(SEARCH_COUNTRIES_QUERY);
-
   const {
     dispatch,
-    state: { searchQuery, loading },
+    state: { searchQuery },
   } = useContext(AppContext);
 
-  const fetchMore = (newOffset: number) => {
-    if (isEmptySearchQuery(searchQuery)) return;
-    const { query, type } = searchQuery!;
+  // const fetchMore = (newOffset: number) => {
+  //   if (isEmptySearchQuery(searchQuery)) return;
+  //   const { query, type } = searchQuery!;
 
-    dispatch({
-      type: ActionTypes.SET_COUNTRIES_SEARCH_QUERY,
-      payload: {
-        ...searchQuery,
-        type,
-        query: {
-          ...query,
-          offset: newOffset,
-        },
-      },
-    });
-  };
+  //   dispatch({
+  //     type: ActionTypes.SET_COUNTRIES_SEARCH_QUERY,
+  //     payload: {
+  //       ...searchQuery,
+  //       type,
+  //       query: {
+  //         ...query,
+  //         offset: newOffset,
+  //       },
+  //     },
+  //   });
+  // };
 
-  const onCompleted = (data: ICountriesSearchResponse) =>
+  // eslint-disable-next-line func-names
+  const onCompleted = function (data: ICountriesSearchResponse) {
     dispatch({
       type: getActionTypeFromSearchQuery(searchQuery),
       payload: data,
     });
+  };
+
+  const [fetchCountries, { refetch }] = useLazyQuery<ICountriesSearchResponse>(
+    SEARCH_COUNTRIES_QUERY,
+    {
+      onCompleted,
+      notifyOnNetworkStatusChange: true,
+      variables: buildQueryVariables(),
+    }
+  );
 
   const handleFetch = (searchQueryData?: SearchQuery) => {
+    // Initial page load
+    if (!searchQuery) {
+      fetchCountries();
+      return;
+    }
+
     // Happens when search box has empty string
     if (isEmptySearchQuery(searchQueryData)) {
+      console.log('Got here!!!');
       dispatch({ type: ActionTypes.EMPTY_SEARCH_QUERY });
       return;
     }
 
-    const useLazyQueryOptions = {
-      onCompleted,
-      ...buildPartialHooksOptions(searchQueryData),
-    };
-    fetchCountries(useLazyQueryOptions);
+    refetch!(buildQueryVariables(searchQueryData));
   };
 
   useEffect(() => {

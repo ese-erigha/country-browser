@@ -258,6 +258,7 @@ export const country = {
 export const mappedCountries: MappedCountry[] = [
   {
     id: 'id',
+    metaId: 'metaId1',
     name: 'Afghanistan',
     capital: 'Kabul',
     alpha2Code: 'AF',
@@ -267,6 +268,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId2',
     name: 'Åland Islands',
     capital: 'Mariehamn',
     alpha2Code: 'AX',
@@ -276,6 +278,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId3',
     name: 'Afghanistan',
     capital: 'Kabul',
     alpha2Code: 'AF',
@@ -285,6 +288,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId4',
     name: 'Åland Islands',
     capital: 'Mariehamn',
     alpha2Code: 'AX',
@@ -294,6 +298,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId5',
     name: 'Afghanistan',
     capital: 'Kabul',
     alpha2Code: 'AF',
@@ -303,6 +308,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId6',
     name: 'Åland Islands',
     capital: 'Mariehamn',
     alpha2Code: 'AX',
@@ -312,6 +318,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId7',
     name: 'Afghanistan',
     capital: 'Kabul',
     alpha2Code: 'AF',
@@ -321,6 +328,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId8',
     name: 'Åland Islands',
     capital: 'Mariehamn',
     alpha2Code: 'AX',
@@ -330,6 +338,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId9',
     name: 'Afghanistan',
     capital: 'Kabul',
     alpha2Code: 'AF',
@@ -339,6 +348,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId10',
     name: 'Åland Islands',
     capital: 'Mariehamn',
     alpha2Code: 'AX',
@@ -348,6 +358,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId11',
     name: 'Afghanistan',
     capital: 'Kabul',
     alpha2Code: 'AF',
@@ -357,6 +368,7 @@ export const mappedCountries: MappedCountry[] = [
   },
   {
     id: 'id',
+    metaId: 'metaId12',
     name: 'Åland Islands',
     capital: 'Mariehamn',
     alpha2Code: 'AX',

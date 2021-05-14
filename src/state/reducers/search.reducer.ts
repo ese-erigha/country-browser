@@ -43,7 +43,7 @@ const fetchAllCountriesReducer = (
 
   return {
     cache,
-    countryListResponse: state.cache?.countryListResponse,
+    countryListResponse: cache!.countryListResponse,
   };
 };
 
@@ -71,7 +71,13 @@ const fetchCountriesByRegionReducer = (
     pageInfo,
   };
 
+  const cache = {
+    countryListResponse,
+    searchQuery: state.searchQuery,
+  };
+
   return {
+    cache,
     countryListResponse,
     searchQuery: state.cache?.searchQuery,
   };
@@ -113,11 +119,11 @@ const emptySearchReducerStrategy: SearchReducerStrategy = {
 };
 
 const reducerStrategies: SearchReducerStrategy[] = [
+  emptySearchReducerStrategy,
   countriesSearchErrorReducerStrategy,
   fetchAllCountriesReducerStrategy,
   fetchCountriesByRegionReducerStrategy,
   searchCountriesReducerStrategy,
-  emptySearchReducerStrategy,
 ];
 
 export const searchReducer = (state: State, action: BaseSearchAction): State => {
