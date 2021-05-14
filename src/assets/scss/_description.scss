@@ -5,6 +5,7 @@
 .right-side {
   grid-area: right-side;
 }
+
 .description {
   .name {
     font-weight: 800;
@@ -12,8 +13,8 @@
   .details-grid {
     margin-top: 30px;
     display: grid;
-    grid-template-columns: 45% 55%;
-    column-gap: 15px;
+    grid-template-columns: 40% 55%;
+    column-gap: 70px;
     grid-template-areas: 'left-side right-side';
 
     @media screen and (max-width: 480px) {
@@ -29,6 +30,7 @@
 
     .borders {
       margin-top: 10px;
+      max-width: 600px;
     }
   }
 }

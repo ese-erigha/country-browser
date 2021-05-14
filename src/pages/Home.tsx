@@ -21,7 +21,7 @@ const buildQueryVariables = (searchQuery?: SearchQuery, queryOffset?: number) =>
 };
 
 const getActionTypeFromSearchQuery = (searchQuery?: SearchQuery): ActionTypes => {
-  if (!searchQuery) return ActionTypes.SEARCH_COUNTRIES;
+  if (!searchQuery) return ActionTypes.FETCH_ALL_COUNTRIES;
   const { type } = searchQuery;
   if (type === QueryType.FETCH_ALL_COUNTRIES) return ActionTypes.FETCH_ALL_COUNTRIES;
   if (type === QueryType.SEARCH_COUNTRIES) return ActionTypes.SEARCH_COUNTRIES;
@@ -74,15 +74,31 @@ const Home = () => {
   );
 
   const handleFetch = (searchQueryData?: SearchQuery) => {
-    // Initial page load
-    if (!searchQuery) {
+    // Initial page load - no query
+    if (!searchQueryData) {
+      dispatch({
+        type: ActionTypes.SET_COUNTRIES_SEARCH_QUERY,
+        payload: {
+          type: QueryType.FETCH_ALL_COUNTRIES,
+          query: {
+            offset: 0,
+          },
+        },
+      });
+      return;
+    }
+
+    if (
+      searchQueryData &&
+      searchQueryData.type === QueryType.FETCH_ALL_COUNTRIES &&
+      searchQueryData.query?.offset === 0
+    ) {
       fetchCountries();
       return;
     }
 
     // Happens when search box has empty string
     if (isEmptySearchQuery(searchQueryData)) {
-      console.log('Got here!!!');
       dispatch({ type: ActionTypes.EMPTY_SEARCH_QUERY });
       return;
     }

@@ -26,6 +26,13 @@ main {
   margin-top: 100px;
 }
 
+.mt-50 {
+  margin-top: 50px;
+}
+.mb-20{
+  margin-bottom: 10px;
+}
+
 .pad-left-5 {
   padding-left: 5rem;
 }
@@ -108,21 +115,12 @@ p {
   width: auto;
 }
 
-.inline {
-  display: inline;
+.block {
+  display: block;
 }
+
 .parent-width {
   width: 100%;
-}
-
-.flag-wrapper {
-  @media screen and (max-width: 768px) {
-    width: 100%;
-  }
-
-  img {
-    width: 100%;
-  }
 }
 
 .detail-wrapper {
