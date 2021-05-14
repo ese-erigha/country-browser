@@ -1,18 +1,18 @@
 .flag-wrapper {
-    width: 450px;
-    height: 400px;
-    flex-shrink: 1;
-    position: relative;
-    padding-bottom: 1.5%;
+  width: 450px;
+  height: 400px;
+  flex-shrink: 1;
+  position: relative;
+  padding-bottom: 1.5%;
 
-    @media screen and (max-width: 480px) {
-        height: 350px;
-      }
+  @media screen and (max-width: 480px) {
+    height: 350px;
+  }
 
-    img {
-        position: absolute;
-        width: 100%;
-        top: 50%;
-        transform: translateY(-50%);
-    }
+  img {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
