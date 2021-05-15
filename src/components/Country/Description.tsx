@@ -39,11 +39,11 @@ const Description = ({ country }: Props) => (
             <span className="weight-600 space-right-4">Top Level Domain:</span>
             {country.topLevelDomain.join(', ')}
           </p>
-          <p className="mb-down">
+          <p className="mb-down nested-list-field">
             <span className="weight-600 space-right-4">Currencies:</span>
             {arrToString(country.currencies)}
           </p>
-          <p className="mb-down">
+          <p className="mb-down nested-list-field">
             <span className="weight-600 space-right-4">Languages:</span>
             {arrToString(country.languages)}
           </p>

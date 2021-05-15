@@ -32,6 +32,13 @@
           'left-side'
           'right-side';
       }
+
+      .right-side {
+
+        .nested-list-field {
+            max-width: 350px;
+        }
+      }
     }
     .border-countries {
       margin-top: 40px;
