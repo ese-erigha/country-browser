@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { AppContext } from 'state/context';
 import CountryCard from './CountryCard';
-// import { mappedCountries } from '../fixtures';
 import LoadingSpinner from './LoadingSpinner';
 
 const CountryList = () => {

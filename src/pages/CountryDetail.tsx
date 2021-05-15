@@ -1,9 +1,9 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 import { Helmet } from 'react-helmet-async';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 import Flag from 'components/Country/Flag';
-// import { country } from 'fixtures';
 import Description from 'components/Country/Description';
 import { FETCH_COUNTRY_BY_ID_QUERY } from 'api';
 import { useQuery } from '@apollo/react-hooks';
@@ -18,7 +18,6 @@ type RouteParams = {
 
 const CountryDetail = () => {
   const { id } = useParams<RouteParams>();
-  console.log(id);
   const { data, error } = useQuery<ICountryResponse>(FETCH_COUNTRY_BY_ID_QUERY, {
     variables: { id },
   });
@@ -27,16 +26,20 @@ const CountryDetail = () => {
   if (data.country.__typename === 'CountryNotFound') return <div>{error}</div>;
   const country = data.country as Country;
 
+  const goToPreviousPath = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <Helmet>
         <title>{WEBSITE_NAME}</title>
       </Helmet>
       <div className="back-button-wrapper">
-        <a href="/countries" className="btn click-button space-left-10">
+        <Button onClick={goToPreviousPath} className="btn click-button space-left-10">
           <FontAwesomeIcon icon={faLongArrowAltLeft} />
           <span className="space-left-10">Back</span>
-        </a>
+        </Button>
       </div>
       <div className="d-flex flex-wrap justify-content-start mt-100 detail-wrapper">
         <Flag flag={country.flag} />
