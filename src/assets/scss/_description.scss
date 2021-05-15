@@ -19,7 +19,7 @@
       grid-template-columns: 40% 48%;
       column-gap: 70px;
       grid-template-areas: 'left-side right-side';
-  
+
       @media screen and (max-width: 545px) {
         row-gap: 30px;
         grid-template-columns: 1fr;
@@ -30,7 +30,7 @@
     }
     .border-countries {
       margin-top: 40px;
-  
+
       .borders {
         margin-top: 10px;
         max-width: 600px;
