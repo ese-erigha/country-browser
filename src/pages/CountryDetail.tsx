@@ -38,7 +38,7 @@ const CountryDetail = () => {
           <span className="space-left-10">Back</span>
         </a>
       </div>
-      <div className="d-flex flex-wrap justify-content-md-between justify-content-center mt-100 detail-wrapper">
+      <div className="d-flex flex-wrap justify-content-start mt-100 detail-wrapper">
         <Flag flag={country.flag} />
         <Description country={country} />
       </div>

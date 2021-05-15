@@ -124,11 +124,12 @@ export type SearchQuery = {
 export type State = {
   loading: boolean;
   error?: string;
-  selectedRegion?: string;
   countryListResponse?: CountryListResponse;
   cache?: {
     countryListResponse?: CountryListResponse;
     searchQuery?: SearchQuery;
+    queryInput?: QueryInput;
   };
   searchQuery?: SearchQuery;
+  queryInput?: QueryInput;
 };

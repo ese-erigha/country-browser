@@ -128,7 +128,7 @@ p {
     margin-top: 20px;
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 768px) {
     justify-content: flex-start !important;
   }
 }
@@ -147,4 +147,10 @@ p {
 .btn-primary:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
+}
+
+.country-list-flex {
+   & > div {
+     margin: 10px;
+   }
 }

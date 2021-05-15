@@ -14,7 +14,7 @@ const CountryList = () => {
   if (!mappedCountries?.length) return <div>No countries</div>;
   return (
     <>
-      <div className="d-flex flex-wrap justify-content-md-between justify-content-center">
+      <div className="d-flex flex-wrap country-list-flex">
         {mappedCountries.map((country) => (
           <CountryCard key={`${country.id}${country.name}`} country={country} />
         ))}

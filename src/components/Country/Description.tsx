@@ -49,7 +49,7 @@ const Description = ({ country }: Props) => (
           </p>
         </div>
       </div>
-      {country.borders.length && (
+      {country.borders.length > 0 && (
         <div className="border-countries">
           <div className="title">
             <span className="weight-600">Border Countries:</span>

@@ -2,25 +2,42 @@ import React, { ChangeEvent, useState, useCallback, useContext } from 'react';
 import debounce from 'lodash.debounce';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { QueryType } from 'types';
+import { ICountriesSearchResponse } from 'types';
 import { AppContext } from 'state/context';
 import { ActionTypes } from 'state/actionTypes';
+import { OperationVariables, useLazyQuery } from '@apollo/react-hooks';
+import { SEARCH_COUNTRIES_QUERY } from 'api';
+import { buildQueryVariables } from 'helpers';
 
 const SearchBox = () => {
   const { dispatch } = useContext(AppContext);
   const [input, setInput] = useState<string>('');
+  let variables: OperationVariables | undefined = {};
 
-  const performSearch = (query: string) => {
+  const onCompleted = (data: ICountriesSearchResponse) =>
     dispatch({
-      type: ActionTypes.SET_COUNTRIES_SEARCH_QUERY,
+      type: ActionTypes.SEARCH_COUNTRIES,
       payload: {
-        type: QueryType.SEARCH_COUNTRIES,
-        query: {
-          offset: 0,
-          name: query,
-        },
+        countryResponse: data,
+        queryInput: variables!.countryInput,
       },
     });
+
+  const [searchCountries] = useLazyQuery<ICountriesSearchResponse>(SEARCH_COUNTRIES_QUERY, {
+    onCompleted,
+    notifyOnNetworkStatusChange: true,
+    variables,
+  });
+
+  const performSearch = (query: string) => {
+    if (!query.length) {
+      dispatch({
+        type: ActionTypes.EMPTY_SEARCH_QUERY,
+      });
+      return;
+    }
+    variables = buildQueryVariables({ offset: 0, name: query });
+    searchCountries({ variables });
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps

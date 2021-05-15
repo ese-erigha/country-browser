@@ -3,7 +3,6 @@ import {
   EmptySearchQueryAction,
   FetchAllCountriesAction,
   ActionTypes,
-  BaseSearchAction,
   Action,
 } from 'state/actionTypes';
 import {
@@ -24,38 +23,29 @@ export const emptySearchQueryReducer = (
   _action: EmptySearchQueryAction
 ): Partial<State> => ({
   countryListResponse: state.cache?.countryListResponse,
-  searchQuery: state.cache?.searchQuery,
+  queryInput: state.cache?.queryInput,
 });
 
 const fetchAllCountriesReducer = (
   state: State,
   action: FetchAllCountriesAction
 ): Partial<State> => {
-  const { nodes, pageInfo } = getCountriesFromPayload(action.payload);
-  const countryList = state.cache?.countryListResponse?.countries ?? [];
-  const cache = {
-    countryListResponse: {
-      countries: countryList.concat(nodes),
-      pageInfo,
-    },
-    searchQuery: state.searchQuery,
-  };
-
-  return {
-    cache,
-    countryListResponse: cache!.countryListResponse,
-  };
-};
-
-const searchCountriesReducer = (state: State, action: SearchCountriesAction): Partial<State> => {
-  const { nodes, pageInfo } = getCountriesFromPayload(action.payload);
-  const offset = state.searchQuery?.query?.offset ?? 0;
+  if (!action.payload || !action?.payload.countryResponse?.countries) return { ...state };
+  const { queryInput, countryResponse } = action.payload;
+  const { nodes, pageInfo } = getCountriesFromPayload(countryResponse);
+  const offset = queryInput?.offset ?? 0;
   const countryListResponse: CountryListResponse = {
     countries: offset < 1 ? nodes : (state.countryListResponse?.countries ?? []).concat(nodes),
     pageInfo,
   };
 
+  const cache = {
+    countryListResponse,
+    queryInput,
+  };
+
   return {
+    cache,
     countryListResponse,
   };
 };
@@ -64,8 +54,10 @@ const fetchCountriesByRegionReducer = (
   state: State,
   action: FetchAllCountriesAction
 ): Partial<State> => {
-  const { nodes, pageInfo } = getCountriesFromPayload(action.payload);
-  const offset = state.searchQuery?.query?.offset ?? 0;
+  if (!action.payload || !action?.payload.countryResponse?.countries) return { ...state };
+  const { queryInput, countryResponse } = action.payload;
+  const { nodes, pageInfo } = getCountriesFromPayload(countryResponse);
+  const offset = queryInput?.offset ?? 0;
   const countryListResponse: CountryListResponse = {
     countries: offset < 1 ? nodes : (state.countryListResponse?.countries ?? []).concat(nodes),
     pageInfo,
@@ -73,44 +65,57 @@ const fetchCountriesByRegionReducer = (
 
   const cache = {
     countryListResponse,
-    searchQuery: state.searchQuery,
+    queryInput,
   };
 
   return {
     cache,
     countryListResponse,
-    searchQuery: state.cache?.searchQuery,
+  };
+};
+
+const searchCountriesReducer = (state: State, action: SearchCountriesAction): Partial<State> => {
+  if (!action.payload || !action?.payload.countryResponse?.countries) return { ...state };
+  const { queryInput, countryResponse } = action.payload;
+  const { nodes, pageInfo } = getCountriesFromPayload(countryResponse);
+  const offset = queryInput?.offset ?? 0;
+  const countryListResponse: CountryListResponse = {
+    countries: offset < 1 ? nodes : (state.countryListResponse?.countries ?? []).concat(nodes),
+    pageInfo,
+  };
+
+  return {
+    countryListResponse,
   };
 };
 
 type SearchReducerStrategy = {
-  check: (state: State, action: BaseSearchAction) => boolean;
-  reduce: (state: State, action: BaseSearchAction) => Partial<State>;
+  check: (state: State, action: Action) => boolean;
+  reduce: (state: State, action: Action) => Partial<State>;
 };
 
 const countriesSearchErrorReducerStrategy: SearchReducerStrategy = {
-  check: (_state: State, action: BaseSearchAction) =>
-    action.payload.countries.__typename === 'CountrySearchError',
-  reduce: (_state: State, action: BaseSearchAction) => ({
-    error: (action.payload.countries as CountrySearchError).message,
+  check: (_state: State, action: Action) =>
+    action.payload?.countryResponse?.countries.__typename === 'CountrySearchError',
+  reduce: (_state: State, action: Action) => ({
+    error: (action.payload?.countryResponse?.countries as CountrySearchError).message,
   }),
 };
 
 const fetchAllCountriesReducerStrategy: SearchReducerStrategy = {
-  check: (_state: State, action: BaseSearchAction) =>
-    action.type === ActionTypes.FETCH_ALL_COUNTRIES,
-  reduce: (state: State, action: BaseSearchAction) => fetchAllCountriesReducer(state, action),
+  check: (_state: State, action: Action) => action.type === ActionTypes.FETCH_ALL_COUNTRIES,
+  reduce: (state: State, action: Action) => fetchAllCountriesReducer(state, action),
 };
 
 const fetchCountriesByRegionReducerStrategy: SearchReducerStrategy = {
-  check: (_state: State, action: BaseSearchAction) =>
+  check: (_state: State, action: Action) =>
     action.type === ActionTypes.FETCH_COUNTRIES_BY_REGION_QUERY,
-  reduce: (state: State, action: BaseSearchAction) => fetchCountriesByRegionReducer(state, action),
+  reduce: (state: State, action: Action) => fetchCountriesByRegionReducer(state, action),
 };
 
 const searchCountriesReducerStrategy: SearchReducerStrategy = {
-  check: (_state: State, action: BaseSearchAction) => action.type === ActionTypes.SEARCH_COUNTRIES,
-  reduce: (state: State, action: BaseSearchAction) => searchCountriesReducer(state, action),
+  check: (_state: State, action: Action) => action.type === ActionTypes.SEARCH_COUNTRIES,
+  reduce: (state: State, action: Action) => searchCountriesReducer(state, action),
 };
 
 const emptySearchReducerStrategy: SearchReducerStrategy = {
@@ -118,7 +123,7 @@ const emptySearchReducerStrategy: SearchReducerStrategy = {
   reduce: (state: State, action: Action) => emptySearchQueryReducer(state, action),
 };
 
-const reducerStrategies: SearchReducerStrategy[] = [
+export const reducerStrategies: SearchReducerStrategy[] = [
   emptySearchReducerStrategy,
   countriesSearchErrorReducerStrategy,
   fetchAllCountriesReducerStrategy,
@@ -126,7 +131,7 @@ const reducerStrategies: SearchReducerStrategy[] = [
   searchCountriesReducerStrategy,
 ];
 
-export const searchReducer = (state: State, action: BaseSearchAction): State => {
+export const searchReducer = (state: State, action: Action): State => {
   const reducerStrategy = reducerStrategies.find(({ check }) => check(state, action));
   if (!reducerStrategy) return { ...state };
 

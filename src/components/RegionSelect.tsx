@@ -3,7 +3,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import { ActionTypes } from 'state/actionTypes';
 import { AppContext } from 'state/context';
-import { QueryType } from 'types';
+import { SEARCH_COUNTRIES_QUERY } from 'api';
+import { ICountriesSearchResponse } from 'types';
+import { OperationVariables, useLazyQuery } from '@apollo/react-hooks';
+import { buildQueryVariables } from 'helpers';
 
 const regionMap: Record<string, string> = {
   Africa: 'Africa',
@@ -19,20 +22,29 @@ const RegionSelect = () => {
   const { dispatch } = useContext(AppContext);
   const [selectedRegion, setSelectedRegionValue] = useState('');
   const [dropdownText, setDropdownText] = useState('Filter by Region');
+  let variables: OperationVariables | undefined = {};
+
+  const onCompleted = (data: ICountriesSearchResponse) =>
+    dispatch({
+      type: ActionTypes.FETCH_COUNTRIES_BY_REGION_QUERY,
+      payload: {
+        countryResponse: data,
+        queryInput: variables!.countryInput,
+      },
+    });
+
+  const [fetchCountriesByRegion] = useLazyQuery<ICountriesSearchResponse>(SEARCH_COUNTRIES_QUERY, {
+    onCompleted,
+    notifyOnNetworkStatusChange: true,
+    variables,
+  });
+
   const handleSelect = (eventKey: string | null) => {
     const key = eventKey!;
     setDropdownText(regionMap[key]);
     setSelectedRegionValue(key);
-    dispatch({
-      type: ActionTypes.SET_COUNTRIES_SEARCH_QUERY,
-      payload: {
-        type: QueryType.REGION_SELECT,
-        query: {
-          offset: 0,
-          region: key,
-        },
-      },
-    });
+    variables = buildQueryVariables({ offset: 0, region: key });
+    fetchCountriesByRegion({ variables });
   };
 
   return (
