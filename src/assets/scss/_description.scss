@@ -17,8 +17,13 @@
       margin-top: 30px;
       display: grid;
       grid-template-columns: 40% 48%;
-      column-gap: 70px;
+      column-gap: 50px;
       grid-template-areas: 'left-side right-side';
+
+      @media screen and (max-width: 1200px) {
+        column-gap: 30px;
+        grid-template-columns: 48% 45%;
+      }
 
       @media screen and (max-width: 545px) {
         row-gap: 30px;
@@ -34,6 +39,14 @@
       .borders {
         margin-top: 10px;
         max-width: 600px;
+
+        @media screen and (max-width: 1200px) {
+          max-width: 400px;
+        }
+
+        @media screen and (max-width: 991px) {
+          max-width: 600px;
+        }
       }
     }
   }

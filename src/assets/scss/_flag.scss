@@ -4,10 +4,19 @@
   flex-shrink: 1;
   position: relative;
   padding-bottom: 1.5%;
-  margin-right: 70px;
+  margin-right: 50px;
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 1200px) {
+    margin-right: 40px;
+  }
+
+  @media screen and (max-width: 546px) {
     height: 350px;
+  }
+
+  @media screen and (max-width: 420px) {
+    height: 200px;
+    width: 300px;
   }
 
   img {
@@ -15,5 +24,9 @@
     width: 100%;
     top: 50%;
     transform: translateY(-50%);
+
+    @media screen and (max-width: 546px) {
+      height: 100%;
+    }
   }
 }
