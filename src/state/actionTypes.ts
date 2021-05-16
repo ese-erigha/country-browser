@@ -1,11 +1,4 @@
-import { ICountriesSearchResponse, QueryInput } from 'types';
-
-export enum ActionTypes {
-  FETCH_ALL_COUNTRIES = 'FETCH_ALL_COUNTRIES',
-  SEARCH_COUNTRIES = 'SEARCH_COUNTRIES',
-  EMPTY_SEARCH_QUERY = 'EMPTY_SEARCH_QUERY',
-  FETCH_COUNTRIES_BY_REGION_QUERY = 'FETCH_COUNTRIES_BY_REGION_QUERY',
-}
+import { ActionTypes, ICountriesSearchResponse, QueryInput } from 'types';
 
 interface BaseAction {
   type: ActionTypes;

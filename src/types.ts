@@ -103,11 +103,11 @@ export type CountryListResponse = {
   pageInfo?: PageInfo;
 };
 
-export enum QueryType {
-  REGION_SELECT = 'REGION_SELECT',
-  SEARCH_COUNTRIES = 'SEARCH_COUNTRIES',
-
+export enum ActionTypes {
   FETCH_ALL_COUNTRIES = 'FETCH_ALL_COUNTRIES',
+  SEARCH_COUNTRIES = 'SEARCH_COUNTRIES',
+  EMPTY_SEARCH_QUERY = 'EMPTY_SEARCH_QUERY',
+  FETCH_COUNTRIES_BY_REGION_QUERY = 'FETCH_COUNTRIES_BY_REGION_QUERY',
 }
 
 export type QueryInput = {
@@ -116,20 +116,20 @@ export type QueryInput = {
   region?: string;
 };
 
-export type SearchQuery = {
-  type: QueryType;
-  query: QueryInput;
+export type Query = {
+  type: ActionTypes;
+  value: QueryInput;
 };
 
 export type State = {
   loading: boolean;
   error?: string;
   countryListResponse?: CountryListResponse;
+  activeQuery?: Query;
+  pageInfo?: PageInfo;
   cache?: {
     countryListResponse?: CountryListResponse;
-    searchQuery?: SearchQuery;
-    queryInput?: QueryInput;
+    activeQuery?: Query;
+    pageInfo?: PageInfo;
   };
-  searchQuery?: SearchQuery;
-  queryInput?: QueryInput;
 };

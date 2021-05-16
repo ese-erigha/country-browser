@@ -1,4 +1,4 @@
-import { State } from 'types';
+import { ActionTypes, State } from 'types';
 import { APP_STATE } from '../../constants';
 import { Action } from '../actionTypes';
 import { reducerStrategies } from './search.reducer';
@@ -8,6 +8,10 @@ import { reducerStrategies } from './search.reducer';
 
 export const initialState: State = {
   loading: true,
+  activeQuery: {
+    type: ActionTypes.FETCH_ALL_COUNTRIES,
+    value: { offset: 0 },
+  },
 };
 
 export const initState = (state: State) => state;

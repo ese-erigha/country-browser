@@ -2,14 +2,15 @@ import {
   SearchCountriesAction,
   EmptySearchQueryAction,
   FetchAllCountriesAction,
-  ActionTypes,
   Action,
 } from 'state/actionTypes';
 import {
+  ActionTypes,
   CountryConnection,
   CountryListResponse,
   CountrySearchError,
   ICountriesSearchResponse,
+  Query,
   State,
 } from 'types';
 
@@ -23,7 +24,8 @@ export const emptySearchQueryReducer = (
   _action: EmptySearchQueryAction
 ): Partial<State> => ({
   countryListResponse: state.cache?.countryListResponse,
-  queryInput: state.cache?.queryInput,
+  activeQuery: state.cache?.activeQuery,
+  pageInfo: state.cache?.pageInfo,
 });
 
 const fetchAllCountriesReducer = (
@@ -39,14 +41,22 @@ const fetchAllCountriesReducer = (
     pageInfo,
   };
 
+  const activeQuery: Query = {
+    type: ActionTypes.FETCH_ALL_COUNTRIES,
+    value: queryInput!,
+  };
+
   const cache = {
     countryListResponse,
-    queryInput,
+    activeQuery,
+    pageInfo,
   };
 
   return {
     cache,
     countryListResponse,
+    pageInfo,
+    activeQuery,
   };
 };
 
@@ -63,14 +73,22 @@ const fetchCountriesByRegionReducer = (
     pageInfo,
   };
 
+  const activeQuery: Query = {
+    type: ActionTypes.FETCH_COUNTRIES_BY_REGION_QUERY,
+    value: queryInput!,
+  };
+
   const cache = {
     countryListResponse,
-    queryInput,
+    activeQuery,
+    pageInfo,
   };
 
   return {
     cache,
     countryListResponse,
+    pageInfo,
+    activeQuery,
   };
 };
 
@@ -84,8 +102,15 @@ const searchCountriesReducer = (state: State, action: SearchCountriesAction): Pa
     pageInfo,
   };
 
+  const activeQuery: Query = {
+    type: ActionTypes.SEARCH_COUNTRIES,
+    value: queryInput!,
+  };
+
   return {
     countryListResponse,
+    pageInfo,
+    activeQuery,
   };
 };
 

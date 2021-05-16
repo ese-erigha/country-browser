@@ -1,11 +1,10 @@
 import React, { ChangeEvent, useState, useCallback, useContext } from 'react';
+import { OperationVariables, useLazyQuery } from '@apollo/react-hooks';
 import debounce from 'lodash.debounce';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { ICountriesSearchResponse } from 'types';
+import { ActionTypes, ICountriesSearchResponse } from 'types';
 import { AppContext } from 'state/context';
-import { ActionTypes } from 'state/actionTypes';
-import { OperationVariables, useLazyQuery } from '@apollo/react-hooks';
 import { SEARCH_COUNTRIES_QUERY } from 'api';
 import { buildQueryVariables } from 'helpers';
 

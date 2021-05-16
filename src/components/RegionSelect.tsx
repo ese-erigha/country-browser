@@ -1,10 +1,9 @@
 import React, { useContext, useState } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { ActionTypes } from 'state/actionTypes';
 import { AppContext } from 'state/context';
 import { SEARCH_COUNTRIES_QUERY } from 'api';
-import { ICountriesSearchResponse } from 'types';
+import { ActionTypes, ICountriesSearchResponse } from 'types';
 import { OperationVariables, useLazyQuery } from '@apollo/react-hooks';
 import { buildQueryVariables } from 'helpers';
 
