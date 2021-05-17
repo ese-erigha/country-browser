@@ -1,43 +1,18 @@
 import React, { ChangeEvent, useState, useCallback, useContext } from 'react';
-import { useLazyQuery } from '@apollo/react-hooks';
 import debounce from 'lodash.debounce';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { ActionTypes, ICountriesSearchResponse, QueryInput } from 'types';
+import { ActionTypes } from 'types';
 import { AppContext } from 'state/context';
-import { SEARCH_COUNTRIES_QUERY } from 'api';
 import { buildQueryVariables } from 'helpers';
+import useFetchData from 'hooks/useFetchData';
 
 const SearchBox = () => {
   const { dispatch } = useContext(AppContext);
   const [input, setInput] = useState<string>('');
-  const [variables, setVariables] = useState<{ countryInput: QueryInput }>(
-    buildQueryVariables({ offset: 0 })
-  );
+  const { fetchData } = useFetchData(ActionTypes.SEARCH_COUNTRIES);
 
-  const onCompleted = (data: ICountriesSearchResponse) => {
-    dispatch({
-      type: ActionTypes.SEARCH_COUNTRIES,
-      payload: {
-        countryResponse: data,
-        queryInput: variables!.countryInput,
-      },
-    });
-  };
-
-  const [searchCountries] = useLazyQuery<ICountriesSearchResponse>(SEARCH_COUNTRIES_QUERY, {
-    onCompleted,
-    notifyOnNetworkStatusChange: true,
-    variables,
-  });
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debounceSearch = useCallback(
-    debounce((query) => searchCountries(query), 300),
-    []
-  );
-
-  const handleSearch = useCallback((query) => {
+  const performSearch = (query: string) => {
     if (!query.length) {
       dispatch({
         type: ActionTypes.EMPTY_SEARCH_QUERY,
@@ -45,15 +20,19 @@ const SearchBox = () => {
       return;
     }
     const newVariables = buildQueryVariables({ offset: 0, name: query });
-    setVariables(newVariables);
-    debounceSearch(newVariables);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    fetchData(newVariables);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceSearch = useCallback(
+    debounce((query) => performSearch(query), 200),
+    []
+  );
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value;
     setInput(query);
-    handleSearch(query);
+    debounceSearch(query);
   };
 
   return (
