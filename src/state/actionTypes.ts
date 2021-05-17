@@ -7,7 +7,6 @@ interface BaseAction {
     queryInput?: QueryInput;
   };
 }
-
 export interface EmptySearchQueryAction extends BaseAction {}
 export interface FetchAllCountriesAction extends BaseAction {}
 export interface SearchCountriesAction extends BaseAction {}

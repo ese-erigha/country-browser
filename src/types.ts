@@ -111,7 +111,7 @@ export enum ActionTypes {
 }
 
 export type QueryInput = {
-  offset?: number;
+  offset: number;
   name?: string;
   region?: string;
 };
