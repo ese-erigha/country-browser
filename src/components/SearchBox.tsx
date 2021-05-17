@@ -19,8 +19,7 @@ const SearchBox = () => {
       });
       return;
     }
-    const newVariables = buildQueryVariables({ offset: 0, name: query });
-    fetchData(newVariables);
+    fetchData(buildQueryVariables({ offset: 0, name: query }));
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
