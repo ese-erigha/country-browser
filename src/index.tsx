@@ -1,4 +1,5 @@
 import React from 'react';
+import { ToastProvider } from 'react-toast-notifications';
 import ReactDOM from 'react-dom';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { apolloClient } from 'middleware';
@@ -8,9 +9,11 @@ import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <App />
-    </ApolloProvider>
+    <ToastProvider>
+      <ApolloProvider client={apolloClient}>
+        <App />
+      </ApolloProvider>
+    </ToastProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

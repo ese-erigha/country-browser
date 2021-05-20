@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
+import { useToasts } from 'react-toast-notifications';
 import { onError } from '@apollo/client/link/error';
 import { GRAPHQL_URI } from 'config';
 
@@ -7,12 +8,12 @@ const httpLink = new HttpLink({
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors)
-    graphQLErrors.forEach(({ message, locations, path }) =>
-      console.log(`[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`)
-    );
+  const { addToast } = useToasts();
+  if (graphQLErrors) {
+    graphQLErrors.forEach(({ message }) => addToast(message, { appearance: 'error' }));
+  }
 
-  if (networkError) console.log(`[Network error]: ${networkError}`);
+  if (networkError) addToast(networkError.message, { appearance: 'error' });
 });
 
 export const apolloClient = new ApolloClient({
