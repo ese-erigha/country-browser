@@ -28,10 +28,7 @@ export const emptySearchQueryReducer = (
   pageInfo: state.cache?.pageInfo,
 });
 
-const fetchAllCountriesReducer = (
-  state: State,
-  action: FetchAllCountriesAction
-): Partial<State> => {
+const rootReducer = (state: State, action: Action) => {
   if (!action.payload || !action?.payload.countryResponse?.countries) return { ...state };
   const { queryInput, countryResponse } = action.payload;
   const { nodes, pageInfo } = getCountriesFromPayload(countryResponse);
@@ -42,7 +39,7 @@ const fetchAllCountriesReducer = (
   };
 
   const activeQuery: Query = {
-    type: ActionTypes.FETCH_ALL_COUNTRIES,
+    type: action.type,
     value: queryInput!,
   };
 
@@ -59,54 +56,17 @@ const fetchAllCountriesReducer = (
     activeQuery,
   };
 };
+
+const fetchAllCountriesReducer = (state: State, action: FetchAllCountriesAction): Partial<State> =>
+  rootReducer(state, action);
 
 const fetchCountriesByRegionReducer = (
   state: State,
   action: FetchAllCountriesAction
-): Partial<State> => {
-  if (!action.payload || !action?.payload.countryResponse?.countries) return { ...state };
-  const { queryInput, countryResponse } = action.payload;
-  const { nodes, pageInfo } = getCountriesFromPayload(countryResponse);
-  const offset = queryInput?.offset ?? 0;
-  const countryListResponse: CountryListResponse = {
-    countries: offset < 1 ? nodes : (state.countryListResponse?.countries ?? []).concat(nodes),
-    pageInfo,
-  };
-
-  const activeQuery: Query = {
-    type: ActionTypes.FETCH_COUNTRIES_BY_REGION_QUERY,
-    value: queryInput!,
-  };
-
-  const cache = {
-    countryListResponse,
-    activeQuery,
-    pageInfo,
-  };
-
-  return {
-    cache,
-    countryListResponse,
-    pageInfo,
-    activeQuery,
-  };
-};
+): Partial<State> => rootReducer(state, action);
 
 const searchCountriesReducer = (state: State, action: SearchCountriesAction): Partial<State> => {
-  if (!action.payload || !action?.payload.countryResponse?.countries) return { ...state };
-  const { queryInput, countryResponse } = action.payload;
-  const { nodes, pageInfo } = getCountriesFromPayload(countryResponse);
-  const offset = queryInput?.offset ?? 0;
-  const countryListResponse: CountryListResponse = {
-    countries: offset < 1 ? nodes : (state.countryListResponse?.countries ?? []).concat(nodes),
-    pageInfo,
-  };
-
-  const activeQuery: Query = {
-    type: ActionTypes.SEARCH_COUNTRIES,
-    value: queryInput!,
-  };
-
+  const { countryListResponse, pageInfo, activeQuery } = rootReducer(state, action);
   return {
     countryListResponse,
     pageInfo,
