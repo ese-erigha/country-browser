@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useCallback, useContext } from 'react';
+import React, { ChangeEvent, useState, useCallback, useContext, useEffect } from 'react';
 import debounce from 'lodash.debounce';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +8,10 @@ import { buildQueryVariables } from 'helpers';
 import useFetchData from 'hooks/useFetchData';
 
 const SearchBox = () => {
-  const { dispatch } = useContext(AppContext);
+  const {
+    dispatch,
+    state: { activeQuery },
+  } = useContext(AppContext);
   const [input, setInput] = useState<string>('');
   const { fetchData } = useFetchData(ActionTypes.SEARCH_COUNTRIES);
 
@@ -33,6 +36,11 @@ const SearchBox = () => {
     setInput(query);
     debounceSearch(query);
   };
+
+  useEffect(() => {
+    setInput(activeQuery?.value?.name ?? '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="search-box">
