@@ -33,7 +33,7 @@ const CountryDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{WEBSITE_NAME}</title>
+        <title>{`${country.name} / ${WEBSITE_NAME}`}</title>
       </Helmet>
       <div className="back-button-wrapper">
         <Button onClick={goToPreviousPath} className="btn click-button space-left-10">
