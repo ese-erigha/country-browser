@@ -7,6 +7,7 @@ const BackToTop = () => {
   const [showScroll, setShowScroll] = useState(false);
 
   const checkScrollTop = () => {
+    console.log(window.pageYOffset);
     if (!showScroll && window.pageYOffset > SCROLL_POSITION_THRESHOLD) {
       setShowScroll(true);
     } else if (showScroll && window.pageYOffset <= SCROLL_POSITION_THRESHOLD) {
