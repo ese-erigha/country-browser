@@ -1,22 +1,25 @@
-.backToTop{
-    position: fixed;
-            left:auto;right: 20px;top:auto;bottom: 20px;
-	        outline: none;
-            overflow:hidden;
-            color:#fff;
-            text-align:center;
-            background-color: $very-dark-blue;
-            height:40px;
-            width:40px;
-            line-height:40px;
-            font-size:14px;
-            border-radius:2px;
-            cursor:pointer;
-            transition:all 0.3s linear;
-            z-index:999999; 
+.backToTop {
+  position: fixed;
+  left: auto;
+  right: 20px;
+  top: auto;
+  bottom: 20px;
+  outline: none;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+  background-color: $very-dark-blue;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  font-size: 14px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  z-index: 999999;
 
-    &.hide{
-        opacity:1;
-        display:none;
-    }
+  &.hide {
+    opacity: 1;
+    display: none;
+  }
 }
