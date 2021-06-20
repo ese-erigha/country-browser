@@ -7,7 +7,6 @@ const BackToTop = () => {
   const [showScroll, setShowScroll] = useState(false);
 
   const checkScrollTop = () => {
-    console.log(window.pageYOffset);
     if (!showScroll && window.pageYOffset > SCROLL_POSITION_THRESHOLD) {
       setShowScroll(true);
     } else if (showScroll && window.pageYOffset <= SCROLL_POSITION_THRESHOLD) {
@@ -29,7 +28,7 @@ const BackToTop = () => {
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-    <div className={buttonClasses} tabIndex={0} role="button" onClick={scrollToTop} id="backToTop">
+    <div className={buttonClasses} tabIndex={0} role="button" onClick={scrollToTop}>
       &#9650;
     </div>
   );
