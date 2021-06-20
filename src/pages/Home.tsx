@@ -10,7 +10,6 @@ import { WEBSITE_NAME } from '../constants';
 
 const Home = () => {
   const { fetchData } = useFetchData(ActionTypes.FETCH_ALL_COUNTRIES);
-
   useEffect(() => {
     fetchData(buildQueryVariables({ offset: 0 }));
     // eslint-disable-next-line react-hooks/exhaustive-deps

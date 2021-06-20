@@ -1,6 +1,6 @@
 import { buildQueryVariables } from 'helpers';
 import useFetchData from 'hooks/useFetchData';
-import React, { useCallback, useContext, useEffect, useRef } from 'react';
+import React, { useCallback, useContext, useLayoutEffect, useRef } from 'react';
 import { AppContext } from 'state/context';
 import { PAGE_SIZE } from '../constants';
 import CountryCard from './CountryCard';
@@ -8,7 +8,7 @@ import LoadingSpinner from './LoadingSpinner';
 
 const option = {
   root: null,
-  rootMargin: '20px',
+  rootMargin: `0px 0px 390px 0px`,
   threshold: 1.0,
 };
 
@@ -24,6 +24,7 @@ const CountryList = () => {
     (entries) => {
       if (loading) return;
       const target = entries[0];
+      console.log(target);
       if (target.isIntersecting) {
         const currentOffset = activeQuery?.value?.offset ?? -1;
         if (pageInfo?.hasNextPage && currentOffset >= 0) {
@@ -38,9 +39,10 @@ const CountryList = () => {
     [activeQuery?.value]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const observer = new IntersectionObserver(handleObserver, option);
     if (loaderRef.current) observer.observe(loaderRef.current);
+    return () => observer.disconnect();
   }, [handleObserver]);
 
   const mappedCountries = countryListResponse?.countries;
@@ -53,8 +55,12 @@ const CountryList = () => {
         {mappedCountries.map((country, index) => (
           <CountryCard key={`${country.id}${country.name}`} country={country} />
         ))}
-        {!loading && mappedCountries.length > 0 && <div ref={loaderRef} />}
       </div>
+      {!loading && mappedCountries.length > 0 && (
+        <div ref={loaderRef}>
+          <span className="hide">Hello</span>
+        </div>
+      )}
     </>
   );
 };
