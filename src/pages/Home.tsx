@@ -3,6 +3,7 @@ import CountryList from 'components/CountryList';
 import { Helmet } from 'react-helmet-async';
 import SearchBox from 'components/SearchBox';
 import RegionSelect from 'components/RegionSelect';
+import BackToTop from 'components/BackToTop';
 import { ActionTypes } from 'types';
 import { buildQueryVariables } from 'helpers';
 import useFetchData from 'hooks/useFetchData';
@@ -25,6 +26,7 @@ const Home = () => {
         <RegionSelect />
       </div>
       <CountryList />
+      <BackToTop />
     </>
   );
 };
