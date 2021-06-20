@@ -1,4 +1,5 @@
 import { buildQueryVariables } from 'helpers';
+import debounce from 'lodash.debounce';
 import useFetchData from 'hooks/useFetchData';
 import React, { useCallback, useContext, useLayoutEffect, useRef } from 'react';
 import { AppContext } from 'state/context';
@@ -8,7 +9,7 @@ import LoadingSpinner from './LoadingSpinner';
 
 const option = {
   root: null,
-  rootMargin: `0px 0px 390px 0px`,
+  rootMargin: `0px 0px 10px 0px`,
   threshold: 1.0,
 };
 
@@ -24,7 +25,6 @@ const CountryList = () => {
     (entries) => {
       if (loading) return;
       const target = entries[0];
-      console.log(target);
       if (target.isIntersecting) {
         const currentOffset = activeQuery?.value?.offset ?? -1;
         if (pageInfo?.hasNextPage && currentOffset >= 0) {
@@ -39,10 +39,17 @@ const CountryList = () => {
     [activeQuery?.value]
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounceScroll = useCallback(
+    debounce((observer) => observer.observe(loaderRef.current), 500),
+    []
+  );
+
   useLayoutEffect(() => {
     const observer = new IntersectionObserver(handleObserver, option);
-    if (loaderRef.current) observer.observe(loaderRef.current);
+    if (loaderRef.current) debounceScroll(observer);
     return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [handleObserver]);
 
   const mappedCountries = countryListResponse?.countries;
