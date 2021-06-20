@@ -3,6 +3,7 @@ import debounce from 'lodash.debounce';
 import useFetchData from 'hooks/useFetchData';
 import React, { useCallback, useContext, useLayoutEffect, useRef } from 'react';
 import { AppContext } from 'state/context';
+import { PageInfo, Query } from 'types';
 import { PAGE_SIZE } from '../constants';
 import CountryCard from './CountryCard';
 import LoadingSpinner from './LoadingSpinner';
@@ -21,19 +22,18 @@ const CountryList = () => {
   const { loading: dataLoading, fetchData } = useFetchData();
   const loading = contextLoading || dataLoading;
 
+  const handlePagination = (currentQuery?: Query, currentPageInfo?: PageInfo) => {
+    const currentOffset = currentQuery?.value?.offset ?? -1;
+    if (currentPageInfo?.hasNextPage && currentOffset >= 0) {
+      const activeQueryInput = currentQuery?.value ?? {};
+      fetchData(buildQueryVariables({ ...activeQueryInput, offset: currentOffset + PAGE_SIZE }));
+    }
+  };
+
   const handleObserver = useCallback(
     (entries) => {
-      if (loading) return;
       const target = entries[0];
-      if (target.isIntersecting) {
-        const currentOffset = activeQuery?.value?.offset ?? -1;
-        if (pageInfo?.hasNextPage && currentOffset >= 0) {
-          const activeQueryInput = activeQuery?.value ?? {};
-          fetchData(
-            buildQueryVariables({ ...activeQueryInput, offset: currentOffset + PAGE_SIZE })
-          );
-        }
-      }
+      if (!loading && target.isIntersecting) handlePagination(activeQuery, pageInfo);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [activeQuery?.value]
