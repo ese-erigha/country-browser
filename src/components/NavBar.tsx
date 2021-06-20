@@ -11,7 +11,7 @@ const NavBar = () => (
         Where in the world?
       </Navbar.Brand>
       <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text>
+        <Navbar.Text className="hide">
           <FontAwesomeIcon icon={faMoon} />
           <span className="space-left-4" />
           <span className="m-l-5 font-weight-550 very-dark-blue">Dark Mode</span>
