@@ -35,7 +35,7 @@ Install [Node](https://nodejs.org/en/download/)
 ### Installing
 Clone the repository
 ```
-git clone https://github.com/eseerigha/countries-api
+git clone https://github.com/eseerigha/country-browser.git
 ```
 Install dependencies
 ```
