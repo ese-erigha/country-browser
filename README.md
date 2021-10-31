@@ -3,8 +3,6 @@
 
 # Countries-Browser-App
 
-https://countries.eseerigha.com/countries
-
 
 A simple app for browsing countries, and powered by a custom [graphql backend services deployed on AWS](https://github.com/eseerigha/countries-api)
 
